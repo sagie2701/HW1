@@ -1,5 +1,10 @@
 public class Main {
         public static void main(String[] args) {
+            Board b = new Board("_ 1");
+            for (enumDirections direction : enumDirections.values()) {
+                System.out.println(direction.name() instanceof String);
+            }
+            /*
         String[] boards = {"_ 1",
                            "1 _",
                            "_ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40",
@@ -22,6 +27,7 @@ public class Main {
             }
         }
         System.out.println("Able to solve " + successCounter + " ot of " + boards.length + " boards.");
+        */
     }
 
     /**
@@ -30,36 +36,36 @@ public class Main {
      * @param boardString String representing an initial board
      * @return true if a solution was found and false otherwise
      */
-    private static boolean searchOnce(String boardString) {
-        Search search = new Search();
-        Thread t = new Thread(() -> search.search(boardString));
-        t.start();  // Start searching for a solution
-        try {
-            t.join(60000);  // Wait for (at most) 60 seconds
-        } catch (InterruptedException e) {
-        }
-        boolean success = false;
-        if (t.isAlive()) {  // The search is not over
-            t.stop();
-            System.out.println("Timout occurred...");
-        } else {  // The search is over
-            Search.Status searchStatus = search.getStatus();
-            switch (searchStatus) {
-                case SOLVED:
-                    System.out.println("Solution length: " + search.getResult().size());
-                    System.out.println(search.getResult());
-                    success = true;
-                    break;
-                case UNSOLVABLE:
-                    System.out.println("Unsolvable board...");
-                    break;
-                case OUT_OF_MEMORY:
-                    System.out.println("Out of memory while searching...");
-                    break;
-            }
-        }
-        System.out.println("Number of expanded nodes: " + search.getExpandedNodes());
-        System.out.println("----------------------------------------------------------------------");
-        return success;
-    }
+//    private static boolean searchOnce(String boardString) {
+//        Search search = new Search();
+//        Thread t = new Thread(() -> search.search(boardString));
+//        t.start();  // Start searching for a solution
+//        try {
+//            t.join(60000);  // Wait for (at most) 60 seconds
+//        } catch (InterruptedException e) {
+//        }
+//        boolean success = false;
+//        if (t.isAlive()) {  // The search is not over
+//            t.stop();
+//            System.out.println("Timout occurred...");
+//        } else {  // The search is over
+//            Search.Status searchStatus = search.getStatus();
+//            switch (searchStatus) {
+//                case SOLVED:
+//                    System.out.println("Solution length: " + search.getResult().size());
+//                    System.out.println(search.getResult());
+//                    success = true;
+//                    break;
+//                case UNSOLVABLE:
+//                    System.out.println("Unsolvable board...");
+//                    break;
+//                case OUT_OF_MEMORY:
+//                    System.out.println("Out of memory while searching...");
+//                    break;
+//            }
+//        }
+//        System.out.println("Number of expanded nodes: " + search.getExpandedNodes());
+//        System.out.println("----------------------------------------------------------------------");
+//        return success;
+//    }
 }
