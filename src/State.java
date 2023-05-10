@@ -23,41 +23,53 @@ public class State {
         return true;
     }
 
-    public Action[] action(){
+    public Action[] actions(){
         int rows = this.board.getRowsNumber();
         int columns = this.board.getcolumnsNumber();
         Tile emptyTile = this.board.getEmptyTile();
         int emptyTileRow = emptyTile.getRow(), emptyTileCol = emptyTile.getColumn();
         Action[] actions = new Action[4];
-        for (enumDirections direction : enumDirections.values()) {
+        int counter = 0;
+        for (EnumDirection direction : EnumDirection.values()) {
             switch (direction){
                 case UP:
-                    if (emptyTileRow != rows - 1)
-                        actions[0] = new Action(this.board.getTile(emptyTileRow - 1, emptyTileCol), "up");
-                    else
-                        actions[0] = new Action("up");
+                    if (emptyTileRow != rows - 1) {
+                        actions[0] = new Action(this.board.getTile(emptyTileRow - 1, emptyTileCol),
+                                "up", emptyTileRow, emptyTileCol);
+                        counter++;
+                    }
                     break;
                 case DOWN:
-                    if (emptyTileRow != 0)
-                        actions[0] = new Action(this.board.getTile(emptyTileRow + 1, emptyTileCol), "down");
-                    else
-                        actions[0] = new Action("down");
+                    if (emptyTileRow != 0) {
+                        actions[1] = new Action(this.board.getTile(emptyTileRow + 1, emptyTileCol),
+                                "down", emptyTileRow, emptyTileCol);
+                        counter++;
+                    }
                     break;
                 case RIGHT:
-                    if (emptyTileCol != 0)
-                        actions[0] = new Action(this.board.getTile(emptyTileRow, emptyTileCol - 1), "right");
-                    else
-                        actions[0] = new Action("right");
+                    if (emptyTileCol != 0) {
+                        actions[2] = new Action(this.board.getTile(emptyTileRow, emptyTileCol - 1),
+                                "right", emptyTileRow, emptyTileCol);
+                        counter++;
+                    }
                     break;
                 case LEFT:
-                    if (emptyTileCol != columns - 1)
-                        actions[0] = new Action(this.board.getTile(emptyTileRow, emptyTileCol + 1), "left");
-                    else
-                        actions[0] = new Action("left");
-
+                    if (emptyTileCol != columns - 1) {
+                        actions[3] = new Action(this.board.getTile(emptyTileRow, emptyTileCol + 1),
+                                "left", emptyTileRow, emptyTileCol);
+                        counter++;
+                    }
             }
         }
-        return actions;
+        Action[] actionsToDo = new Action[counter];
+        int i = 0, numberOfActions = 0;
+        while (counter != 0){
+            if (actions[i++] != null){
+                counter--;
+                actionsToDo[numberOfActions++] = actions[i-1];
+            }
+        }
+        return actionsToDo;
     }
 
     public State result(Action action){

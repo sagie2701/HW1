@@ -14,6 +14,12 @@ public class Tile {
         this.column = column;
     }
 
+    public Tile(Tile tile){
+        this.tileNum = tile.getTileNum();
+        this.row = tile.getRow();
+        this.column = tile.getColumn();
+    }
+
     public int getTileNum() {
         return tileNum;
     }
@@ -32,6 +38,14 @@ public class Tile {
 
     public void setColumn(int column) {
         this.column = column;
+    }
+
+    public void switchPlace(Tile tile){
+        int tempRow = this.row, tempColumn = this.column;
+        this.row = tile.getRow();
+        this.column = tile.getColumn();
+        tile.setRow(tempRow);
+        tile.setColumn(tempColumn);
     }
 
 /*

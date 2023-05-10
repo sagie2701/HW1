@@ -1,1 +1,6 @@
-enum enumDirections{UP, DOWN, RIGHT, LEFT};
+public enum EnumDirection {
+    UP,
+    DOWN,
+    RIGHT,
+    LEFT
+}

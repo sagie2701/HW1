@@ -1,8 +1,8 @@
 import java.util.Arrays;
 
 public class Board {
-
     private Tile[][] boardGame;
+
     public Board(String boardString) {
         String[] boardStringArray = boardString.split("\\|");
         int boardRows = boardStringArray.length;
@@ -54,19 +54,26 @@ public class Board {
     }
 
     public Board moveTile(Action action){
-        Tile temp = this.getEmptyTile();
-        int emptyTileRow = temp.getRow(), emptyTileCol = temp.getColumn();
+        int[] emptyTileLocation = action.getEmptyTileLocation();
+        int emptyTileRow = emptyTileLocation[0], emptyTileCol = emptyTileLocation[1];
         Tile tileToMove = action.getTileToMove();
-        Tile[][] newBoard = this.boardGame.clone();
+        Tile[][] newBoard = this.cloneBoardGame();
         //update board game
-        newBoard[temp.getRow()][temp.getColumn()] = tileToMove;
-        newBoard[tileToMove.getRow()][tileToMove.getColumn()] = temp;
+        newBoard[emptyTileRow][emptyTileCol] = tileToMove;
+        newBoard[tileToMove.getRow()][tileToMove.getColumn()] = this.boardGame[emptyTileRow][emptyTileCol];
         //update positions of tiles
-        temp.setRow(tileToMove.getRow());
-        temp.setColumn(tileToMove.getColumn());
-        tileToMove.setRow(emptyTileRow);
-        tileToMove.setColumn(emptyTileCol);
+        tileToMove.switchPlace(this.boardGame[emptyTileRow][emptyTileCol]);
         return new Board(newBoard);
+    }
+
+    private Tile[][] cloneBoardGame(){
+        Tile[][] cloneBoard = new Tile[this.boardGame.length][this.boardGame[0].length];
+        for (int i = 0 ; i < this.boardGame.length; i++){
+            for (int j = 0 ; j < this.boardGame[0].length ; j++){
+                cloneBoard[i][j] = new Tile(this.boardGame[i][j]);
+            }
+        }
+        return cloneBoard;
     }
 
     /*
