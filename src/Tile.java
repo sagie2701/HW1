@@ -1,27 +1,27 @@
 public class Tile {
 
-    private final int tileNum;
+    private final int value;
     private int row;
     private int column;
 
 
     public Tile(String tileNum, int row, int column){
         if (tileNum.equals("_"))
-            this.tileNum = 0;
+            this.value = 0;
         else
-            this.tileNum = Integer.parseInt(tileNum);
+            this.value = Integer.parseInt(tileNum);
         this.row = row;
         this.column = column;
     }
 
     public Tile(Tile tile){
-        this.tileNum = tile.getTileNum();
+        this.value = tile.getValue();
         this.row = tile.getRow();
         this.column = tile.getColumn();
     }
 
-    public int getTileNum() {
-        return tileNum;
+    public int getValue() {
+        return value;
     }
 
     public int getRow() {
@@ -48,7 +48,6 @@ public class Tile {
         tile.setColumn(tempColumn);
     }
 
-/*
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof Tile)) {
@@ -62,6 +61,4 @@ public class Tile {
     public int hashCode() {
         return Integer.hashCode(value);
     }
-
-     */
 }

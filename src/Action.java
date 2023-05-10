@@ -22,7 +22,7 @@ public class Action {
     }
 
     public String toString(){
-        return "Move " + this.tileToMove.getTileNum() + " " + this.directionToMove;
+        return "Move " + this.tileToMove.getValue() + " " + this.directionToMove;
     }
 }
 

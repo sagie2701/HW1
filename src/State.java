@@ -16,7 +16,7 @@ public class State {
         for (int i = 0 ; i < rows; i++){
             for (int j = 0 ; j < columns ; j++){
                 int value = this.board.getValueByPostion(i, j);
-                if (value != columns * i + j + 1 || (value == 0 && i != rows-1 && j != columns-1))
+                if ( (value == 0 && (i != rows-1 || j != columns-1)) || (value != 0 && value != columns * i + j + 1))
                     return false;
             }
         }
@@ -33,14 +33,14 @@ public class State {
         for (EnumDirection direction : EnumDirection.values()) {
             switch (direction){
                 case UP:
-                    if (emptyTileRow != rows - 1) {
+                    if (emptyTileRow != 0) {
                         actions[0] = new Action(this.board.getTile(emptyTileRow - 1, emptyTileCol),
                                 "up", emptyTileRow, emptyTileCol);
                         counter++;
                     }
                     break;
                 case DOWN:
-                    if (emptyTileRow != 0) {
+                    if (emptyTileRow != rows - 1) {
                         actions[1] = new Action(this.board.getTile(emptyTileRow + 1, emptyTileCol),
                                 "down", emptyTileRow, emptyTileCol);
                         counter++;

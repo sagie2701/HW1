@@ -1,7 +1,9 @@
 public class Main {
         public static void main(String[] args) {
-        String[] boards = {"_ 1",
-                           "1 _",
+        String[] boards = {
+                "6 7 5 1|2 10 4 11|9 3 8 _",
+                "1 6 4 15|5 10 _ 13|9 11 3 7|12 8 2 14",
+                "1 9 _ 12 10 5 6|8 11 2 3 4 13 7",
                            };
         int successCounter = 0;
         for (String boardString : boards) {
@@ -13,14 +15,23 @@ public class Main {
         System.out.println("Able to solve " + successCounter + " ot of " + boards.length + " boards.");
     }
     /*
+    solved:
+           "_ 1",
+           "1 _",
+           "7 5 4|_ 3 2|8 1 6",
+     */
+    /*
+    time out:
+
+     */
+    /*
+    didnt tried:
     "_ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40",
                            "_ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 35 26 27 28 29 30 31 32 33 34 25 36 37 38 39 40",
-                           "7 5 4|_ 3 2|8 1 6",
-                           "7 5 4|_ 3 2|8 6 1",
-                           "6 4 7|8 5 _|3 2 1",
-                           "6 7 5 1|2 10 4 11|9 3 8 _",
-                           "1 6 4 15|5 10 _ 13|9 11 3 7|12 8 2 14",
-                           "1 9 _ 12 10 5 6|8 11 2 3 4 13 7",
+"7 5 4|_ 3 2|8 6 1",
+                "6 4 7|8 5 _|3 2 1",
+
+
                            "1 2 3 12 5 6|7 8 9 4 11 17|13 14 15 _ 10 16",
                            "29 7 14 9 11 16|23 17 24 22 18 20|5 3 21 13 27 15|6 4 12 1 19 28|26 10 8 25 2 _",
                            "2 3 8 4 14 13 6|16 9 17 _ 10 5 7|1 11 15 18 12 19 20",
@@ -38,7 +49,7 @@ public class Main {
         Thread t = new Thread(() -> search.search(boardString));
         t.start();  // Start searching for a solution
         try {
-            t.join(60000);  // Wait for (at most) 60 seconds
+            t.join(60000000);  // Wait for (at most) 60 seconds
         } catch (InterruptedException e) {
         }
         boolean success = false;

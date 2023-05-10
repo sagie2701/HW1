@@ -1,48 +1,49 @@
 import java.util.Arrays;
 
 public class Board {
-    private Tile[][] boardGame;
+    private Tile[][] tiles;
 
     public Board(String boardString) {
         String[] boardStringArray = boardString.split("\\|");
         int boardRows = boardStringArray.length;
-        int boardColumns = boardStringArray[0].length() / 2 + 1;
-        this.boardGame = new Tile[boardRows][boardColumns];
+        //int boardColumns = boardStringArray[0].length() / 2 + 1;
+        String[] boardColumns = boardStringArray[0].split(" ");
+        this.tiles = new Tile[boardRows][boardColumns.length];
         for (int i = 0 ; i < boardRows ; i++){
             String[] numbersInRow = boardStringArray[i].split(" ");
-            for (int j = 0 ; j < boardColumns ; j++){
-                this.boardGame[i][j] = new Tile(numbersInRow[j], i, j);
+            for (int j = 0 ; j < boardColumns.length ; j++){
+                this.tiles[i][j] = new Tile(numbersInRow[j], i, j);
             }
         }
     }
 
     public Board(Tile[][] boardGame){
-        this.boardGame = boardGame;
+        this.tiles = boardGame;
     }
 
     public int getRowsNumber(){
-        if (this.boardGame != null) {
-            return this.boardGame.length;
+        if (this.tiles != null) {
+            return this.tiles.length;
         }
         return 0;
     }
 
     public int getcolumnsNumber(){
-        if (this.boardGame != null) {
-            return this.boardGame[0].length;
+        if (this.tiles != null) {
+            return this.tiles[0].length;
         }
         return 0;
     }
 
     public int getValueByPostion(int row, int column){
-        return this.boardGame[row][column].getTileNum();
+        return this.tiles[row][column].getValue();
     }
 
     public Tile getEmptyTile(){
-        for (int i = 0 ; i < this.boardGame.length; i++){
-            for (int j = 0 ; j < this.boardGame[0].length ; j++){
-                if (this.boardGame[i][j].getTileNum() == 0){
-                    return this.boardGame[i][j];
+        for (int i = 0; i < this.tiles.length; i++){
+            for (int j = 0; j < this.tiles[0].length ; j++){
+                if (this.tiles[i][j].getValue() == 0){
+                    return this.tiles[i][j];
                 }
             }
         }
@@ -50,33 +51,36 @@ public class Board {
     }
 
     public Tile getTile(int row, int column){
-        return this.boardGame[row][column];
+        return this.tiles[row][column];
     }
 
     public Board moveTile(Action action){
         int[] emptyTileLocation = action.getEmptyTileLocation();
         int emptyTileRow = emptyTileLocation[0], emptyTileCol = emptyTileLocation[1];
         Tile tileToMove = action.getTileToMove();
+        int tileToMoveRow = tileToMove.getRow(), tileToMoveCol = tileToMove.getColumn();
         Tile[][] newBoard = this.cloneBoardGame();
         //update board game
-        newBoard[emptyTileRow][emptyTileCol] = tileToMove;
-        newBoard[tileToMove.getRow()][tileToMove.getColumn()] = this.boardGame[emptyTileRow][emptyTileCol];
+        newBoard[emptyTileRow][emptyTileCol] = new Tile(tileToMove);
+        newBoard[tileToMoveRow][tileToMoveCol] = new Tile(this.tiles[emptyTileRow][emptyTileCol]);
         //update positions of tiles
-        tileToMove.switchPlace(this.boardGame[emptyTileRow][emptyTileCol]);
+        newBoard[emptyTileRow][emptyTileCol].switchPlace(newBoard[tileToMoveRow][tileToMoveCol]);
         return new Board(newBoard);
     }
 
     private Tile[][] cloneBoardGame(){
-        Tile[][] cloneBoard = new Tile[this.boardGame.length][this.boardGame[0].length];
-        for (int i = 0 ; i < this.boardGame.length; i++){
-            for (int j = 0 ; j < this.boardGame[0].length ; j++){
-                cloneBoard[i][j] = new Tile(this.boardGame[i][j]);
+        int rows = this.tiles.length;
+        int columns = this.tiles[0].length;
+        Tile[][] cloneBoard = new Tile[rows][columns];
+        for (int i = 0 ; i < rows; i++){
+            for (int j = 0 ; j < columns ; j++){
+                cloneBoard[i][j] = new Tile(this.tiles[i][j]);
             }
         }
         return cloneBoard;
     }
 
-    /*
+
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof Board)) {
@@ -90,6 +94,4 @@ public class Board {
     public int hashCode() {
         return Arrays.deepHashCode(tiles);
     }
-
-     */
 }
