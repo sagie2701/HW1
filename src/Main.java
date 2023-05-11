@@ -5,7 +5,6 @@ public class Main {
                 "6 7 5 1|2 10 4 11|9 3 8 _",
                 "1 6 4 15|5 10 _ 13|9 11 3 7|12 8 2 14",
                 "1 9 _ 12 10 5 6|8 11 2 3 4 13 7"
-
                            };
         int successCounter = 0;
         for (String boardString : boards) {

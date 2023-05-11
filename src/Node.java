@@ -20,12 +20,14 @@ public class Node {
     }
 
     public int heuristicValue(){
-        int counterGoodMoves = 0;
+        int counterManhettenDistance = 0, actionManhettenDistance = 0;
         for (Action action: this.actions){
-            if (action.isGoodMove())
-                counterGoodMoves++;
+            actionManhettenDistance = action.isGoodMove();
+            if (actionManhettenDistance == 0)
+                return 0;
+            counterManhettenDistance += actionManhettenDistance;
         }
-        return counterGoodMoves;
+        return counterManhettenDistance;
     }
 
     public Action getAction(){

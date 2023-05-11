@@ -21,15 +21,15 @@ public class Action {
         return arr;
     }
 
-    public boolean isGoodMove(){
+    public int isGoodMove(){
         int manhettenDistance = this.tileToMove.getManhettenDistanceSum();
         int prevRow = this.tileToMove.getRow(), prevColumn = this.tileToMove.getColumn();
         this.tileToMove.switchPlaceByPlace(this.emptyTileRow, this.emptyTileCol);
         int newManhettenDistance = this.tileToMove.getManhettenDistanceSum();
         this.tileToMove.switchPlaceByPlace(prevRow, prevColumn);
-        if (newManhettenDistance - manhettenDistance > 0)
-            return false;
-        return true;
+        if (newManhettenDistance == 0)
+            return 0;
+        return newManhettenDistance;
     }
 
     public String toString(){
