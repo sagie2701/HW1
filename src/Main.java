@@ -1,9 +1,11 @@
 public class Main {
         public static void main(String[] args) {
-        String[] boards = {
+        String[] boards = {"7 5 4|_ 3 2|8 1 6",
+                "6 4 7|8 5 _|3 2 1",
                 "6 7 5 1|2 10 4 11|9 3 8 _",
                 "1 6 4 15|5 10 _ 13|9 11 3 7|12 8 2 14",
-                "1 9 _ 12 10 5 6|8 11 2 3 4 13 7",
+                "1 9 _ 12 10 5 6|8 11 2 3 4 13 7"
+
                            };
         int successCounter = 0;
         for (String boardString : boards) {
@@ -18,7 +20,7 @@ public class Main {
     solved:
            "_ 1",
            "1 _",
-           "7 5 4|_ 3 2|8 1 6",
+           ,
      */
     /*
     time out:
@@ -49,7 +51,7 @@ public class Main {
         Thread t = new Thread(() -> search.search(boardString));
         t.start();  // Start searching for a solution
         try {
-            t.join(60000000);  // Wait for (at most) 60 seconds
+            t.join(60000);  // Wait for (at most) 60 seconds
         } catch (InterruptedException e) {
         }
         boolean success = false;

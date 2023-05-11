@@ -2,24 +2,30 @@ public class Node {
     private Node prevNode;
     private State state;
     private Action prevAction;
+    private Action[] actions;
 
     public Node(Node prevNode, State state, Action prevAction) {
         this.prevNode = prevNode;
         this.state = state;
         this.prevAction = prevAction;
+        this.actions = this.state.actions();
     }
 
     public Node[] expand(){
-        Action[] actions = this.state.actions();
-        Node[] nextNodes = new Node[actions.length];
-        for (int i = 0 ; i < actions.length ; i++){
-            nextNodes[i] = new Node(this, this.state.result(actions[i]), actions[i]);
+        Node[] nextNodes = new Node[this.actions.length];
+        for (int i = 0 ; i < this.actions.length ; i++){
+            nextNodes[i] = new Node(this, this.state.result(this.actions[i]), this.actions[i]);
         }
         return nextNodes;
     }
 
     public int heuristicValue(){
-        return 0;
+        int counterGoodMoves = 0;
+        for (Action action: this.actions){
+            if (action.isGoodMove())
+                counterGoodMoves++;
+        }
+        return counterGoodMoves;
     }
 
     public Action getAction(){
@@ -33,4 +39,5 @@ public class Node {
     public State getState(){
         return this.state;
     }
+
 }

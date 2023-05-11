@@ -21,6 +21,17 @@ public class Action {
         return arr;
     }
 
+    public boolean isGoodMove(){
+        int manhettenDistance = this.tileToMove.getManhettenDistanceSum();
+        int prevRow = this.tileToMove.getRow(), prevColumn = this.tileToMove.getColumn();
+        this.tileToMove.switchPlaceByPlace(this.emptyTileRow, this.emptyTileCol);
+        int newManhettenDistance = this.tileToMove.getManhettenDistanceSum();
+        this.tileToMove.switchPlaceByPlace(prevRow, prevColumn);
+        if (newManhettenDistance - manhettenDistance > 0)
+            return false;
+        return true;
+    }
+
     public String toString(){
         return "Move " + this.tileToMove.getValue() + " " + this.directionToMove;
     }

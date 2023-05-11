@@ -2,23 +2,28 @@ import java.util.Arrays;
 
 public class Board {
     private Tile[][] tiles;
+    private int tilesNotInPlace;
 
     public Board(String boardString) {
+        this.tilesNotInPlace = 0;
         String[] boardStringArray = boardString.split("\\|");
         int boardRows = boardStringArray.length;
-        //int boardColumns = boardStringArray[0].length() / 2 + 1;
         String[] boardColumns = boardStringArray[0].split(" ");
         this.tiles = new Tile[boardRows][boardColumns.length];
         for (int i = 0 ; i < boardRows ; i++){
             String[] numbersInRow = boardStringArray[i].split(" ");
             for (int j = 0 ; j < boardColumns.length ; j++){
                 this.tiles[i][j] = new Tile(numbersInRow[j], i, j);
+                this.tiles[i][j].manhettenDistance(boardColumns.length);
+                if (!this.tiles[i][j].isInTarget())
+                    this.tilesNotInPlace++;
             }
         }
     }
 
-    public Board(Tile[][] boardGame){
+    public Board(Tile[][] boardGame, int tilesNotInPlace){
         this.tiles = boardGame;
+        this.tilesNotInPlace = tilesNotInPlace;
     }
 
     public int getRowsNumber(){
@@ -65,7 +70,10 @@ public class Board {
         newBoard[tileToMoveRow][tileToMoveCol] = new Tile(this.tiles[emptyTileRow][emptyTileCol]);
         //update positions of tiles
         newBoard[emptyTileRow][emptyTileCol].switchPlace(newBoard[tileToMoveRow][tileToMoveCol]);
-        return new Board(newBoard);
+        newBoard[emptyTileRow][emptyTileCol].manhettenDistance(newBoard[0].length);
+        if (newBoard[emptyTileRow][emptyTileCol].isInTarget())
+            return new Board(newBoard, this.tilesNotInPlace--);
+        return new Board(newBoard, this.tilesNotInPlace);
     }
 
     private Tile[][] cloneBoardGame(){
@@ -75,11 +83,15 @@ public class Board {
         for (int i = 0 ; i < rows; i++){
             for (int j = 0 ; j < columns ; j++){
                 cloneBoard[i][j] = new Tile(this.tiles[i][j]);
+                cloneBoard[i][j].setManhettenDistance(this.tiles[i][j].getManhettenDistance());
             }
         }
         return cloneBoard;
     }
 
+    public int getTilesNotInPlace() {
+        return this.tilesNotInPlace;
+    }
 
     @Override
     public boolean equals(Object other) {
