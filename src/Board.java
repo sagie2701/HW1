@@ -2,10 +2,8 @@ import java.util.Arrays;
 
 public class Board {
     private Tile[][] tiles;
-    private int tilesNotInPlace;
 
     public Board(String boardString) {
-        this.tilesNotInPlace = 0;
         String[] boardStringArray = boardString.split("\\|");
         int boardRows = boardStringArray.length;
         String[] boardColumns = boardStringArray[0].split(" ");
@@ -15,15 +13,12 @@ public class Board {
             for (int j = 0 ; j < boardColumns.length ; j++){
                 this.tiles[i][j] = new Tile(numbersInRow[j], i, j);
                 this.tiles[i][j].manhettenDistance(boardColumns.length);
-                if (!this.tiles[i][j].isInTarget())
-                    this.tilesNotInPlace++;
             }
         }
     }
 
-    public Board(Tile[][] boardGame, int tilesNotInPlace){
+    public Board(Tile[][] boardGame){
         this.tiles = boardGame;
-        this.tilesNotInPlace = tilesNotInPlace;
     }
 
     public int getRowsNumber(){
@@ -71,9 +66,7 @@ public class Board {
         //update positions of tiles
         newBoard[emptyTileRow][emptyTileCol].switchPlace(newBoard[tileToMoveRow][tileToMoveCol]);
         newBoard[emptyTileRow][emptyTileCol].manhettenDistance(newBoard[0].length);
-        if (newBoard[emptyTileRow][emptyTileCol].isInTarget())
-            return new Board(newBoard, this.tilesNotInPlace--);
-        return new Board(newBoard, this.tilesNotInPlace);
+        return new Board(newBoard);
     }
 
     private Tile[][] cloneBoardGame(){
@@ -89,9 +82,6 @@ public class Board {
         return cloneBoard;
     }
 
-    public int getTilesNotInPlace() {
-        return this.tilesNotInPlace;
-    }
 
     @Override
     public boolean equals(Object other) {

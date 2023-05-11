@@ -76,10 +76,6 @@ public class State {
         return new State(this.board.moveTile(action));
     }
 
-    public int getTilesNotInPlace() {
-        return this.board.getTilesNotInPlace();
-    }
-
 
     @Override
     public boolean equals(Object other) {

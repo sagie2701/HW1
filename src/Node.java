@@ -1,9 +1,16 @@
 public class Node {
+
     private Node prevNode;
     private State state;
     private Action prevAction;
     private Action[] actions;
 
+    /**
+     *
+     * @param prevNode
+     * @param state
+     * @param prevAction
+     */
     public Node(Node prevNode, State state, Action prevAction) {
         this.prevNode = prevNode;
         this.state = state;
@@ -20,13 +27,9 @@ public class Node {
     }
 
     public int heuristicValue(){
-        int counterManhettenDistance = 0, actionManhettenDistance, i = this.state.getTilesNotInPlace();
+        int counterManhettenDistance = 0;
         for (Action action: this.actions){
-            actionManhettenDistance = action.isGoodMove();
-            if (actionManhettenDistance == 0)
-                continue;
-            else
-                counterManhettenDistance += actionManhettenDistance;
+            counterManhettenDistance += action.isGoodMove();
         }
         return counterManhettenDistance;
     }
