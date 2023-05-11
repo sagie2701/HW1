@@ -20,12 +20,13 @@ public class Node {
     }
 
     public int heuristicValue(){
-        int counterManhettenDistance = 0, actionManhettenDistance = 0;
+        int counterManhettenDistance = 0, actionManhettenDistance, i = this.state.getTilesNotInPlace();
         for (Action action: this.actions){
             actionManhettenDistance = action.isGoodMove();
             if (actionManhettenDistance == 0)
-                return 0;
-            counterManhettenDistance += actionManhettenDistance;
+                continue;
+            else
+                counterManhettenDistance += actionManhettenDistance;
         }
         return counterManhettenDistance;
     }

@@ -29,6 +29,8 @@ public class Action {
         this.tileToMove.switchPlaceByPlace(prevRow, prevColumn);
         if (newManhettenDistance == 0)
             return 0;
+        else if(newManhettenDistance - manhettenDistance > 0)
+            return newManhettenDistance*2;
         return newManhettenDistance;
     }
 
