@@ -82,6 +82,23 @@ public class Board {
         return cloneBoard;
     }
 
+    /**
+     * check if the current game board is the goal
+     * @return -- true if is and false if not
+     */
+    public boolean isGoal(){
+        int rows = this.tiles.length;
+        int columns = this.tiles[0].length;
+        for (int i = 0 ; i < rows; i++){
+            for (int j = 0 ; j < columns ; j++){
+                int value = this.tiles[i][j].getValue();
+                if ( (value == 0 && (i != rows-1 || j != columns-1)) || (value != 0 && value != columns * i + j + 1))
+                    return false;
+            }
+        }
+        return true;
+    }
+
 
     @Override
     public boolean equals(Object other) {

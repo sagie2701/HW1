@@ -2,25 +2,28 @@ public class State {
 
     private Board board;
 
+    /**
+     * crate a new State
+     * @param boardString -- a string that describe a game board
+     */
     public State(String boardString){
         this.board = new Board(boardString);
     }
 
+    /**
+     * crate a new State
+     * @param board -- a board game
+     */
     public State(Board board) {
         this.board = board;
     }
 
+    /**
+     * check if the current game board is the goal
+     * @return -- true if is and false if not
+     */
     public boolean isGoal(){
-        int rows = this.board.getRowsNumber();
-        int columns = this.board.getcolumnsNumber();
-        for (int i = 0 ; i < rows; i++){
-            for (int j = 0 ; j < columns ; j++){
-                int value = this.board.getValueByPostion(i, j);
-                if ( (value == 0 && (i != rows-1 || j != columns-1)) || (value != 0 && value != columns * i + j + 1))
-                    return false;
-            }
-        }
-        return true;
+        return this.board.isGoal();
     }
 
     public Action[] actions(){

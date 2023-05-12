@@ -4,6 +4,13 @@ public class Action {
     private int emptyTileRow;
     private int emptyTileCol;
 
+    /**
+     * build a new Action
+     * @param tileToMove -- tile to move
+     * @param directionToMove -- direction to move
+     * @param emptyTileRow -- empty tile current location (row)
+     * @param emptyTileCol -- empty tile current location (column)
+     */
     public Action(Tile tileToMove, String directionToMove, int emptyTileRow, int emptyTileCol) {
         this.tileToMove = tileToMove;
         this.directionToMove = directionToMove;
@@ -11,16 +18,25 @@ public class Action {
         this.emptyTileCol = emptyTileCol;
     }
 
-
+    /**
+     * @return -- Tile to move
+     */
     public Tile getTileToMove() {
         return tileToMove;
     }
 
+    /**
+     * @return -- int array with empty tile location (index 0 row, 1 column)
+     */
     public int[] getEmptyTileLocation(){
         int[] arr = new int[]{this.emptyTileRow, this.emptyTileCol};
         return arr;
     }
 
+    /**
+     * check if a possible move is good one by manhetten distance of the Tile
+     * @return -- 0 for best move, manhetten distance for good move, and manhetten distance*2 for bad move
+     */
     public int isGoodMove(){
         int manhettenDistance = this.tileToMove.getManhettenDistanceSum();
         int prevRow = this.tileToMove.getRow(), prevColumn = this.tileToMove.getColumn();
@@ -34,6 +50,9 @@ public class Action {
         return newManhettenDistance;
     }
 
+    /**
+     * @return -- a string that describe the move (example: "Move 7 up")
+     */
     public String toString(){
         return "Move " + this.tileToMove.getValue() + " " + this.directionToMove;
     }

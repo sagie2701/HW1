@@ -18,8 +18,13 @@ public class Search {
      * @return The root node used to search for a solution
      */
 
+    /**
+     * build the first node in game
+     * @param boardString -- start board string
+     * @return -- first node
+     */
     private Node getRoot(String boardString) {
-        Node startNode = new Node(null, new State(boardString), null);
+        Node startNode = new Node(null, new State(boardString), null, -1);
         return startNode;
     }
 

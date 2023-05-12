@@ -50,7 +50,6 @@ public class Tile {
     }
 
     public void switchPlaceByPlace(int row, int column){
-        int tempRow = this.row, tempColumn = this.column;
         this.row = row;
         this.column = column;
     }
@@ -83,9 +82,6 @@ public class Tile {
         return this.manhettenDistance[0] + this.manhettenDistance[1];
     }
 
-    public boolean isInTarget(){
-        return this.manhettenDistance[0] == 0 && this.manhettenDistance[1] == 0;
-    }
 
     @Override
     public boolean equals(Object other) {
