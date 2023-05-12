@@ -26,6 +26,10 @@ public class State {
         return this.board.isGoal();
     }
 
+    /**
+     * crate all possible actions in current state
+     * @return -- an array[4] with all possible actions by order (up, down, right, left)
+     */
     public Action[] actions(){
         int rows = this.board.getRowsNumber();
         int columns = this.board.getcolumnsNumber();
@@ -75,6 +79,11 @@ public class State {
         return actionsToDo;
     }
 
+    /**
+     * crate a new State
+     * @param action -- action to commit in order to crate the new state
+     * @return -- a new State
+     */
     public State result(Action action){
         return new State(this.board.moveTile(action));
     }
