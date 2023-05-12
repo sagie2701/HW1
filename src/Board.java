@@ -17,10 +17,18 @@ public class Board {
         }
     }
 
+    /**
+     *
+     * @param boardGame
+     */
     public Board(Tile[][] boardGame){
         this.tiles = boardGame;
     }
 
+    /**
+     * returns the number of rows in board
+     * @return the number of rows in board
+     */
     public int getRowsNumber(){
         if (this.tiles != null) {
             return this.tiles.length;
@@ -28,6 +36,10 @@ public class Board {
         return 0;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getcolumnsNumber(){
         if (this.tiles != null) {
             return this.tiles[0].length;
@@ -35,10 +47,20 @@ public class Board {
         return 0;
     }
 
+    /**
+     *
+     * @param row
+     * @param column
+     * @return
+     */
     public int getValueByPostion(int row, int column){
         return this.tiles[row][column].getValue();
     }
 
+    /**
+     *
+     * @return
+     */
     public Tile getEmptyTile(){
         for (int i = 0; i < this.tiles.length; i++){
             for (int j = 0; j < this.tiles[0].length ; j++){
@@ -50,10 +72,21 @@ public class Board {
         return null;
     }
 
+    /**
+     *
+     * @param row
+     * @param column
+     * @return
+     */
     public Tile getTile(int row, int column){
         return this.tiles[row][column];
     }
 
+    /**
+     *
+     * @param action
+     * @return
+     */
     public Board moveTile(Action action){
         int[] emptyTileLocation = action.getEmptyTileLocation();
         int emptyTileRow = emptyTileLocation[0], emptyTileCol = emptyTileLocation[1];
@@ -69,6 +102,10 @@ public class Board {
         return new Board(newBoard);
     }
 
+    /**
+     * return a copy of the board
+     * @return 2d array of tiles
+     */
     private Tile[][] cloneBoardGame(){
         int rows = this.tiles.length;
         int columns = this.tiles[0].length;
@@ -98,7 +135,6 @@ public class Board {
         }
         return true;
     }
-
 
     @Override
     public boolean equals(Object other) {
