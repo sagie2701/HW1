@@ -1,4 +1,11 @@
 public class Action {
+    /**
+     * Action class -- an action that possible to commit
+     * @param tileToMove -- a Tile to move in this action
+     * @param directionToMove -- direction to move with the tile
+     * @param emptyTileRow -- empty tile current location (row)
+     * @param emptyTileCol -- empty tile current location (column)
+     */
     private Tile tileToMove;
     private String directionToMove;
     private int emptyTileRow;

@@ -1,10 +1,16 @@
 public class Node {
-
+    /**
+     * Node class -- a vertex in the game
+     * @param prevNode -- the previous Node
+     * @param state -- an object with the curren state of the game
+     * @param prevAction -- the previous action that committed to arrive to this node
+     * @param actions -- an array with all possible actions to commit from the node
+     * @param actionCommitted -- the previous action number (in actions array) that committed to arrive to this node
+     */
     private Node prevNode;
     private State state;
     private Action prevAction;
     private Action[] actions;
-
     private int actionCommitted;
 
     /**
@@ -21,6 +27,10 @@ public class Node {
         this.actionCommitted = actionCommitted;
     }
 
+    /**
+     * crate all possible next nodes from curren node
+     * @return -- an array of nodes with all possible next nodes
+     */
     public Node[] expand(){
         Node[] nextNodes = new Node[this.actions.length];
         for (int i = 0 ; i < this.actions.length ; i++){

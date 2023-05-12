@@ -1,5 +1,8 @@
 public class State {
-
+    /**
+     * Stata class -- hold a Board game and creates and performs actions
+     * @param board -- a Board object with the board game
+     */
     private Board board;
 
     /**
