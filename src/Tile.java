@@ -1,12 +1,24 @@
 import java.lang.Math;
 public class Tile {
 
+    /**
+     * Tile class -- a tile in the board of the puzzle
+     * @param value -- the value of the tile
+     * @param row -- the row the tile is in
+     * @param column -- the column the tile is in
+     * @param manhettenDistance -- the manhetten Distance of the tile
+     */
     private final int value;
     private int row;
     private int column;
     private int[] manhettenDistance = new int[2];
 
-
+    /**
+     * creats new tile
+     * @param tileNum -- tile value
+     * @param row -- tile row location
+     * @param column -- tile column location
+     */
     public Tile(String tileNum, int row, int column){
         if (tileNum.equals("_"))
             this.value = 0;
@@ -17,8 +29,8 @@ public class Tile {
     }
 
     /**
-     *
-     * @param tile
+     *create new tile
+     * @param tile -- existing tile
      */
     public Tile(Tile tile){
         this.value = tile.getValue();
@@ -44,7 +56,7 @@ public class Tile {
 
     /**
      * change the row the tile is on to a given row
-     * @param row - the new row of the tile
+     * @param row -- the new row of the tile
      */
     public void setRow(int row) {
         this.row = row;
@@ -60,7 +72,7 @@ public class Tile {
 
     /**
      * change the column the tile is on to a given column
-     * @param column - the new column of the tile
+     * @param column -- the new column of the tile
      */
     public void setColumn(int column) {
         this.column = column;
@@ -68,7 +80,7 @@ public class Tile {
 
     /**
      * switch between two tiles
-     * @param tile - a tile object to switch the current one with
+     * @param tile -- a tile object to switch the current one with
      */
     public void switchPlace(Tile tile){
         int tempRow = this.row, tempColumn = this.column;
@@ -80,8 +92,8 @@ public class Tile {
 
     /**
      * move tile to new location by row and column
-     * @param row - new row location for tile
-     * @param column - new column location for tile
+     * @param row -- new row location for tile
+     * @param column -- new column location for tile
      */
     public void switchPlaceByPlace(int row, int column){
         this.row = row;
@@ -98,7 +110,7 @@ public class Tile {
 
     /**
      * calculate the Manhetten Distance of the tile
-     * @param columns - the number of columns in the board
+     * @param columns -- the number of columns in the board
      */
     public void manhettenDistance(int columns){
         this.manhettenDistance[0] = this.value / columns;
@@ -119,16 +131,11 @@ public class Tile {
 
     /**
      * set the Manhetten Distance to a given value
-     * @param manhettenDistance - array that contain the Manhetten Distance, [0]-moves in x, [1]-moves in y
+     * @param manhettenDistance -- array that contain the Manhetten Distance, [0]-moves in x, [1]-moves in y
      */
     public void setManhettenDistance(int manhettenDistance){
         this.manhettenDistance[0] = manhettenDistance;
     }
-
-    /**
-     * returns the Manhetten Distance
-     * @return the Manhetten Distance
-     */
 
 
     @Override
