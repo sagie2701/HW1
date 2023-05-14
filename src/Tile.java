@@ -1,3 +1,4 @@
+import java.lang.Math;
 public class Tile {
 
     private final int value;
@@ -5,12 +6,7 @@ public class Tile {
     private int column;
     private int[] manhettenDistance = new int[2];
 
-    /**
-     *
-     * @param tileNum
-     * @param row
-     * @param column
-     */
+
     public Tile(String tileNum, int row, int column){
         if (tileNum.equals("_"))
             this.value = 0;
@@ -88,7 +84,6 @@ public class Tile {
      * @param column - new column location for tile
      */
     public void switchPlaceByPlace(int row, int column){
-        int tempRow = this.row, tempColumn = this.column;
         this.row = row;
         this.column = column;
     }
@@ -97,8 +92,8 @@ public class Tile {
      * returns the Manhetten Distance of the tile
      * @return the Manhetten Distance of the tile
      */
-    public int[] getManhettenDistance() {
-        return manhettenDistance;
+    public int getManhettenDistance() {
+        return manhettenDistance[0];
     }
 
     /**
@@ -118,24 +113,22 @@ public class Tile {
             this.manhettenDistance[0] *= -1;
         if (this.manhettenDistance[1] < 0)
             this.manhettenDistance[1] *= -1;
+        //oclides distance
+        this.manhettenDistance[0] = (int)Math.round(Math.pow((Math.pow(this.manhettenDistance[0], 5) + Math.pow(this.manhettenDistance[1], 5)), 0.2));
     }
 
     /**
      * set the Manhetten Distance to a given value
      * @param manhettenDistance - array that contain the Manhetten Distance, [0]-moves in x, [1]-moves in y
      */
-    public void setManhettenDistance(int[] manhettenDistance){
-        this.manhettenDistance[0] = manhettenDistance[0];
-        this.manhettenDistance[1] = manhettenDistance[1];
+    public void setManhettenDistance(int manhettenDistance){
+        this.manhettenDistance[0] = manhettenDistance;
     }
 
     /**
      * returns the Manhetten Distance
      * @return the Manhetten Distance
      */
-    public int getManhettenDistanceSum(){
-        return this.manhettenDistance[0] + this.manhettenDistance[1];
-    }
 
 
     @Override

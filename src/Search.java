@@ -11,28 +11,22 @@ public class Search {
     private int expandedNodes;
     private List<Action> result;
     private Status status = Status.UNSOLVED;
+
     /**
      * Constructs the root node of the game based on an initial board.
      *
      * @param boardString String representing the initial board
      * @return The root node used to search for a solution
      */
-
-    /**
-     * build the first node in game
-     * @param boardString -- start board string
-     * @return -- first node
-     */
     private Node getRoot(String boardString) {
-        Node startNode = new Node(null, new State(boardString), null, -1);
-        return startNode;
+        return new Node(null, new State(boardString), null, -1 , 0);
     }
 
     /**
      * Performs a Greedy Best First Search, using node heuristic function.
      *
      * @param boardString String representing the initial board
-     * @return List of actions which performing them will lead to the the goal state
+     * @return List of actions which performing them will lead to the goal state
      */
     public List<Action> search(String boardString) {
         try {
@@ -71,7 +65,7 @@ public class Search {
      * Extracts a solution from a given node by iterating backward from the node up to the root.
      * The given node satisfies node.getState().isGoal() == true.
      *
-     * @param node Node contains a the goal state
+     * @param node Node contains a goal state
      * @return List of actions to reach the goal state
      */
     private List<Action> extractSolution(Node node) {

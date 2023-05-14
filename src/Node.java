@@ -6,12 +6,14 @@ public class Node {
      * @param prevAction -- the previous action that committed to arrive to this node
      * @param actions -- an array with all possible actions to commit from the node
      * @param actionCommitted -- the previous action number (in actions array) that committed to arrive to this node
+     * @param placeInChane -- place in the solution of the node
      */
     private Node prevNode;
     private State state;
     private Action prevAction;
     private Action[] actions;
     private int actionCommitted;
+    private int placeInChane;
 
     /**
      * crate a new node
@@ -19,12 +21,13 @@ public class Node {
      * @param state -- current state of the new node
      * @param prevAction -- previous state of the new node
      */
-    public Node(Node prevNode, State state, Action prevAction, int actionCommitted) {
+    public Node(Node prevNode, State state, Action prevAction, int actionCommitted, int placeInChane) {
         this.prevNode = prevNode;
         this.state = state;
         this.prevAction = prevAction;
         this.actions = this.state.actions();
         this.actionCommitted = actionCommitted;
+        this.placeInChane = placeInChane;
     }
 
     /**
@@ -34,7 +37,8 @@ public class Node {
     public Node[] expand(){
         Node[] nextNodes = new Node[this.actions.length];
         for (int i = 0 ; i < this.actions.length ; i++){
-            nextNodes[i] = new Node(this, this.state.result(this.actions[i]), this.actions[i], i);
+            nextNodes[i] = new Node(this, this.state.result(this.actions[i]), this.actions[i], i ,
+                    this.placeInChane++);
         }
         return nextNodes;
     }
@@ -44,14 +48,25 @@ public class Node {
      * @return -- heuristic value of a node
      */
     public int heuristicValue(){
+        if (this.state.isGoal())
+            return 0;
         int counterManhettenDistance = 0;
         for (Action action: this.actions){
-            if (this.prevNode != null && !(this.prevNode.getActions()[this.actionCommitted].getTileToMove().getValue()
-                    == action.getTileToMove().getValue()))
+//            if (this.prevNode != null && !(this.prevNode.getActions()[this.actionCommitted].getTileToMove().getValue()
+//                    == action.getTileToMove().getValue()))
                 counterManhettenDistance += action.isGoodMove();
         }
-        return counterManhettenDistance;
+        return counterManhettenDistance * this.placeInChane + this.state.getEmptyTileDistance();
     }
+
+//    public int heuristicValue(){
+//        int counterManhettenDistance = this.heuristicValueNode();
+//        for (Node node: this.expand()){
+//            if (node.heuristicValueNode() > counterManhettenDistance)
+//                counterManhettenDistance = node.heuristicValueNode();
+//        }
+//        return counterManhettenDistance;
+//    }
 
     /**
      * @return -- the node previous Action

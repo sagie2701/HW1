@@ -41,19 +41,14 @@ public class Action {
     }
 
     /**
-     * check if a possible move is good one by manhetten distance of the Tile
-     * @return -- 0 for best move, manhetten distance for good move, and manhetten distance*2 for bad move
+     * check if a good move is good one by manhetten distance of the tileToMove
+     * @return -- the new manhetten distance of the tileToMove
      */
     public int isGoodMove(){
-        int manhettenDistance = this.tileToMove.getManhettenDistanceSum();
         int prevRow = this.tileToMove.getRow(), prevColumn = this.tileToMove.getColumn();
         this.tileToMove.switchPlaceByPlace(this.emptyTileRow, this.emptyTileCol);
-        int newManhettenDistance = this.tileToMove.getManhettenDistanceSum();
+        int newManhettenDistance = this.tileToMove.getManhettenDistance();
         this.tileToMove.switchPlaceByPlace(prevRow, prevColumn);
-        if (newManhettenDistance == 0)
-            return 0;
-        else if(newManhettenDistance - manhettenDistance > 0)
-            return newManhettenDistance*2;
         return newManhettenDistance;
     }
 

@@ -49,16 +49,6 @@ public class Board {
 
     /**
      *
-     * @param row
-     * @param column
-     * @return
-     */
-    public int getValueByPostion(int row, int column){
-        return this.tiles[row][column].getValue();
-    }
-
-    /**
-     *
      * @return
      */
     public Tile getEmptyTile(){
@@ -99,9 +89,11 @@ public class Board {
         //update positions of tiles
         newBoard[emptyTileRow][emptyTileCol].switchPlace(newBoard[tileToMoveRow][tileToMoveCol]);
         newBoard[emptyTileRow][emptyTileCol].manhettenDistance(newBoard[0].length);
+
+        newBoard[tileToMoveRow][tileToMoveCol].manhettenDistance(newBoard[0].length);
+
         return new Board(newBoard);
     }
-
     /**
      * return a copy of the board
      * @return 2d array of tiles
