@@ -105,7 +105,7 @@ public class Tile {
      * @return the Minkowski Distance of the tile
      */
     public int getMinkowskiDistance() {
-        return minkowskiDistance;
+        return this.minkowskiDistance;
     }
 
     /**
@@ -125,29 +125,42 @@ public class Tile {
         if (colDistance < 0)
             colDistance *= -1;
         //minkowski distance
-        //this.minkowskiDistance = (int)Math.round(Math.pow((Math.pow(rowDistance, 5) + Math.pow(colDistance, 5)), 0.2));
+        this.minkowskiDistance = (int)Math.round(Math.pow((Math.pow(rowDistance, 5) + Math.pow(colDistance, 5)), 0.2));
+        /*
         for (int i = 0 ; i < 5 ; i++){
             rowDistance *= rowDistance;
             colDistance *= colDistance;
         }
-        this.minkowskiDistance = (int) (fifthRoot((double) rowDistance + colDistance) + 0.5);
+        this.minkowskiDistance = (int) (fifthRoot((double) (rowDistance + colDistance)) + 0.5);
+
+         */
     }
 
     private static double fifthRoot(double number) {
-        double guess = number / 5.0;
-        double error = 0.0001;
-        while (Math.abs(Math.pow(guess, 5) - number) > error) {
-            guess = ((number / Math.pow(guess, 4)) + 4 * guess) / 5.0;
+        double precision = 0.00001; // the desired precision of the result
+        double x = number / 5.0; // initial guess
+
+        while (true) {
+            double nextX = (1.0 / 5.0) * ((4.0 * x) + (number / (x * x * x * x))); // calculate the next guess
+            double diff = nextX - x; // calculate the difference between the next guess and the current guess
+            if (diff < 0) { // check if the difference is negative
+                diff = -diff; // take the absolute value of the difference
+            }
+            if (diff < precision) { // check if the desired precision has been reached
+                x = nextX;
+                break;
+            }
+            x = nextX;
         }
-        return guess;
+        return x;
     }
 
     /**
      * set the Manhetten Distance to a given value
-     * @param manhettenDistance -- array that contain the Manhetten Distance, [0]-moves in x, [1]-moves in y
+     * @param minkowskiDistance -- array that contain the Manhetten Distance, [0]-moves in x, [1]-moves in y
      */
-    public void setManhettenDistance(int manhettenDistance){
-        this.minkowskiDistance = manhettenDistance;
+    public void setMinkowskiDistance(int minkowskiDistance){
+        this.minkowskiDistance = minkowskiDistance;
     }
 
 

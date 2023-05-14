@@ -110,7 +110,7 @@ public class Board {
         for (int i = 0 ; i < rows; i++){
             for (int j = 0 ; j < columns ; j++){
                 cloneBoard[i][j] = new Tile(this.tiles[i][j]);
-                cloneBoard[i][j].setManhettenDistance(this.tiles[i][j].getMinkowskiDistance());
+                cloneBoard[i][j].setMinkowskiDistance(this.tiles[i][j].getMinkowskiDistance());
             }
         }
         return cloneBoard;
