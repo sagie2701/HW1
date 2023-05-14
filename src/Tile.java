@@ -4,7 +4,7 @@ public class Tile {
     private final int value;
     private int row;
     private int column;
-    private int[] manhettenDistance = new int[2];
+    private int minkowskiDistance;
 
 
     public Tile(String tileNum, int row, int column){
@@ -89,32 +89,45 @@ public class Tile {
     }
 
     /**
-     * returns the Manhetten Distance of the tile
-     * @return the Manhetten Distance of the tile
+     * returns the Minkowski Distance of the tile
+     * @return the Minkowski Distance of the tile
      */
-    public int getManhettenDistance() {
-        return manhettenDistance[0];
+    public int getMinkowskiDistance() {
+        return minkowskiDistance;
     }
 
     /**
-     * calculate the Manhetten Distance of the tile
+     * calculate the Minkowski Distance of the tile
      * @param columns - the number of columns in the board
      */
-    public void manhettenDistance(int columns){
-        this.manhettenDistance[0] = this.value / columns;
-        this.manhettenDistance[1] = (this.value % columns) - 1;
-        if (this.manhettenDistance[1] == -1) {
-            this.manhettenDistance[0]--;
-            this.manhettenDistance[1] = columns - 1;
+    public void minkowskiDistance(int columns){
+        int rowDistance = this.value / columns, colDistance = (this.value % columns) - 1;
+        if (colDistance == -1) {
+            rowDistance--;
+            colDistance = columns - 1;
         }
-        this.manhettenDistance[0] = this.manhettenDistance[0] - this.row;
-        this.manhettenDistance[1] = this.manhettenDistance[1] - this.column;
-        if (this.manhettenDistance[0] < 0)
-            this.manhettenDistance[0] *= -1;
-        if (this.manhettenDistance[1] < 0)
-            this.manhettenDistance[1] *= -1;
-        //oclides distance
-        this.manhettenDistance[0] = (int)Math.round(Math.pow((Math.pow(this.manhettenDistance[0], 5) + Math.pow(this.manhettenDistance[1], 5)), 0.2));
+        rowDistance = rowDistance - this.row;
+        colDistance = colDistance - this.column;
+        if (rowDistance < 0)
+            rowDistance *= -1;
+        if (colDistance < 0)
+            colDistance *= -1;
+        //minkowski distance
+        //this.minkowskiDistance = (int)Math.round(Math.pow((Math.pow(rowDistance, 5) + Math.pow(colDistance, 5)), 0.2));
+        for (int i = 0 ; i < 5 ; i++){
+            rowDistance *= rowDistance;
+            colDistance *= colDistance;
+        }
+        this.minkowskiDistance = (int) (fifthRoot((double) rowDistance + colDistance) + 0.5);
+    }
+
+    private static double fifthRoot(double number) {
+        double guess = number / 5.0;
+        double error = 0.0001;
+        while (Math.abs(Math.pow(guess, 5) - number) > error) {
+            guess = ((number / Math.pow(guess, 4)) + 4 * guess) / 5.0;
+        }
+        return guess;
     }
 
     /**
@@ -122,13 +135,8 @@ public class Tile {
      * @param manhettenDistance - array that contain the Manhetten Distance, [0]-moves in x, [1]-moves in y
      */
     public void setManhettenDistance(int manhettenDistance){
-        this.manhettenDistance[0] = manhettenDistance;
+        this.minkowskiDistance = manhettenDistance;
     }
-
-    /**
-     * returns the Manhetten Distance
-     * @return the Manhetten Distance
-     */
 
 
     @Override

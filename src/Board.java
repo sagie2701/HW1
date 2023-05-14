@@ -12,7 +12,7 @@ public class Board {
             String[] numbersInRow = boardStringArray[i].split(" ");
             for (int j = 0 ; j < boardColumns.length ; j++){
                 this.tiles[i][j] = new Tile(numbersInRow[j], i, j);
-                this.tiles[i][j].manhettenDistance(boardColumns.length);
+                this.tiles[i][j].minkowskiDistance(boardColumns.length);
             }
         }
     }
@@ -88,9 +88,9 @@ public class Board {
         newBoard[tileToMoveRow][tileToMoveCol] = new Tile(this.tiles[emptyTileRow][emptyTileCol]);
         //update positions of tiles
         newBoard[emptyTileRow][emptyTileCol].switchPlace(newBoard[tileToMoveRow][tileToMoveCol]);
-        newBoard[emptyTileRow][emptyTileCol].manhettenDistance(newBoard[0].length);
+        newBoard[emptyTileRow][emptyTileCol].minkowskiDistance(newBoard[0].length);
 
-        newBoard[tileToMoveRow][tileToMoveCol].manhettenDistance(newBoard[0].length);
+        newBoard[tileToMoveRow][tileToMoveCol].minkowskiDistance(newBoard[0].length);
 
         return new Board(newBoard);
     }
@@ -105,7 +105,7 @@ public class Board {
         for (int i = 0 ; i < rows; i++){
             for (int j = 0 ; j < columns ; j++){
                 cloneBoard[i][j] = new Tile(this.tiles[i][j]);
-                cloneBoard[i][j].setManhettenDistance(this.tiles[i][j].getManhettenDistance());
+                cloneBoard[i][j].setManhettenDistance(this.tiles[i][j].getMinkowskiDistance());
             }
         }
         return cloneBoard;

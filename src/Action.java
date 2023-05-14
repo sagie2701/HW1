@@ -47,7 +47,7 @@ public class Action {
     public int isGoodMove(){
         int prevRow = this.tileToMove.getRow(), prevColumn = this.tileToMove.getColumn();
         this.tileToMove.switchPlaceByPlace(this.emptyTileRow, this.emptyTileCol);
-        int newManhettenDistance = this.tileToMove.getManhettenDistance();
+        int newManhettenDistance = this.tileToMove.getMinkowskiDistance();
         this.tileToMove.switchPlaceByPlace(prevRow, prevColumn);
         return newManhettenDistance;
     }

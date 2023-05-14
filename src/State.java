@@ -92,7 +92,7 @@ public class State {
     }
 
     public int getEmptyTileDistance(){
-        return this.board.getEmptyTile().getManhettenDistance();
+        return this.board.getEmptyTile().getMinkowskiDistance();
     }
 
 
