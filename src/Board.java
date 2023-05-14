@@ -1,6 +1,11 @@
 import java.util.Arrays;
 
 public class Board {
+
+    /**
+     * board class -- a board of the puzzle build from tiles
+     * @param tiles -- 2d array of tiles that represent the board
+     */
     private Tile[][] tiles;
 
     public Board(String boardString) {
@@ -18,8 +23,8 @@ public class Board {
     }
 
     /**
-     *
-     * @param boardGame
+     *create new board
+     * @param -- boardGame
      */
     public Board(Tile[][] boardGame){
         this.tiles = boardGame;
@@ -37,8 +42,8 @@ public class Board {
     }
 
     /**
-     *
-     * @return
+     * returns the number of columns in board
+     * @return the number of columns in board
      */
     public int getcolumnsNumber(){
         if (this.tiles != null) {
@@ -48,8 +53,8 @@ public class Board {
     }
 
     /**
-     *
-     * @return
+     * gets the location of the empty tile
+     * @return array of the location of the empty tile, [0] - row, [1] - column
      */
     public Tile getEmptyTile(){
         for (int i = 0; i < this.tiles.length; i++){
@@ -63,19 +68,19 @@ public class Board {
     }
 
     /**
-     *
-     * @param row
-     * @param column
-     * @return
+     * gets the tile in the provided location
+     * @param row -- row location of the wanted tile
+     * @param column -- column location of the wanted tile
+     * @return a wanted tile by location
      */
     public Tile getTile(int row, int column){
         return this.tiles[row][column];
     }
 
     /**
-     *
-     * @param action
-     * @return
+     * makes a provided action on the board
+     * @param action -- an action to preform on the board
+     * @return a clone of the board after the action was done
      */
     public Board moveTile(Action action){
         int[] emptyTileLocation = action.getEmptyTileLocation();
@@ -113,7 +118,7 @@ public class Board {
 
     /**
      * check if the current game board is the goal
-     * @return -- true if is and false if not
+     * @return true if is goal and false if not goal
      */
     public boolean isGoal(){
         int rows = this.tiles.length;
