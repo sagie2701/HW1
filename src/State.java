@@ -35,11 +35,12 @@ public class State {
      */
     public Action[] actions(){
         int rows = this.board.getRowsNumber();
-        int columns = this.board.getcolumnsNumber();
+        int columns = this.board.getColumnsNumber();
         Tile emptyTile = this.board.getEmptyTile();
         int emptyTileRow = emptyTile.getRow(), emptyTileCol = emptyTile.getColumn();
         Action[] actions = new Action[4];
         int counter = 0;
+        //check all possible actions
         for (EnumDirection direction : EnumDirection.values()) {
             switch (direction){
                 case UP:
@@ -71,6 +72,7 @@ public class State {
                     }
             }
         }
+        //delete illegal actions
         Action[] actionsToDo = new Action[counter];
         int i = 0, numberOfActions = 0;
         while (counter != 0){
@@ -82,6 +84,7 @@ public class State {
         return actionsToDo;
     }
 
+
     /**
      * crate a new State
      * @param action -- action to commit in order to crate the new state
@@ -91,8 +94,13 @@ public class State {
         return new State(this.board.moveTile(action));
     }
 
-    public int getEmptyTileDistance(){
-        return this.board.getEmptyTile().getMinkowskiDistance();
+
+    /**
+     * sum all manhattan distance tiles
+     * @return int - sum all manhattan distance tiles
+     */
+    public int getEmptyTilesDistance(){
+        return this.board.getEmptyTilesDistance();
     }
 
 

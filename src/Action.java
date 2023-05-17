@@ -19,7 +19,7 @@ public class Action {
      * @param emptyTileCol -- empty tile current location (column)
      */
     public Action(Tile tileToMove, String directionToMove, int emptyTileRow, int emptyTileCol) {
-        this.tileToMove = tileToMove;
+        this.tileToMove = new Tile(tileToMove);
         this.directionToMove = directionToMove;
         this.emptyTileRow = emptyTileRow;
         this.emptyTileCol = emptyTileCol;
@@ -36,21 +36,9 @@ public class Action {
      * @return -- int array with empty tile location (index 0 row, 1 column)
      */
     public int[] getEmptyTileLocation(){
-        int[] arr = new int[]{this.emptyTileRow, this.emptyTileCol};
-        return arr;
+        return new int[]{this.emptyTileRow, this.emptyTileCol};
     }
 
-    /**
-     * check if a good move is good one by manhetten distance of the tileToMove
-     * @return -- the new manhetten distance of the tileToMove
-     */
-    public int isGoodMove(){
-        int prevRow = this.tileToMove.getRow(), prevColumn = this.tileToMove.getColumn();
-        this.tileToMove.switchPlaceByPlace(this.emptyTileRow, this.emptyTileCol);
-        int newManhettenDistance = this.tileToMove.getMinkowskiDistance();
-        this.tileToMove.switchPlaceByPlace(prevRow, prevColumn);
-        return newManhettenDistance;
-    }
 
     /**
      * @return -- a string that describe the move (example: "Move 7 up")

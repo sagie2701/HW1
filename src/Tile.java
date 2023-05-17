@@ -1,4 +1,3 @@
-import java.lang.Math;
 public class Tile {
 
     /**
@@ -6,15 +5,15 @@ public class Tile {
      * @param value -- the value of the tile
      * @param row -- the row the tile is in
      * @param column -- the column the tile is in
-     * @param manhettenDistance -- the manhetten Distance of the tile
+     * @param manhattanDistance -- the manhattan Distance of the tile
      */
     private final int value;
     private int row;
     private int column;
-    private int minkowskiDistance;
+    private int manhattanDistance;
 
     /**
-     * creats new tile
+     * creates new tile
      * @param tileNum -- tile value
      * @param row -- tile row location
      * @param column -- tile column location
@@ -36,6 +35,7 @@ public class Tile {
         this.value = tile.getValue();
         this.row = tile.getRow();
         this.column = tile.getColumn();
+        this.manhattanDistance = tile.manhattanDistance;
     }
 
     /**
@@ -62,6 +62,7 @@ public class Tile {
         this.row = row;
     }
 
+
     /**
      * returns the row the tile is on
      * @return the row the tile is on
@@ -70,6 +71,7 @@ public class Tile {
         return column;
     }
 
+
     /**
      * change the column the tile is on to a given column
      * @param column -- the new column of the tile
@@ -77,6 +79,7 @@ public class Tile {
     public void setColumn(int column) {
         this.column = column;
     }
+
 
     /**
      * switch between two tiles
@@ -90,6 +93,7 @@ public class Tile {
         tile.setColumn(tempColumn);
     }
 
+
     /**
      * move tile to new location by row and column
      * @param row -- new row location for tile
@@ -101,18 +105,19 @@ public class Tile {
     }
 
     /**
-     * returns the Minkowski Distance of the tile
-     * @return the Minkowski Distance of the tile
+     * returns the manhattan Distance of the tile
+     * @return the manhattan Distance of the tile
      */
-    public int getMinkowskiDistance() {
-        return this.minkowskiDistance;
+    public int getManhattanDistance() {
+        return this.manhattanDistance;
     }
 
+
     /**
-     * calculate the Manhetten Distance of the tile
+     * calculate the Manhattan Distance of the tile
      * @param columns -- the number of columns in the board
      */
-    public void minkowskiDistance(int columns){
+    public void manhattanDistance(int columns){
         int rowDistance = this.value / columns, colDistance = (this.value % columns) - 1;
         if (colDistance == -1) {
             rowDistance--;
@@ -125,42 +130,17 @@ public class Tile {
         if (colDistance < 0)
             colDistance *= -1;
         //minkowski distance
-        this.minkowskiDistance = (int)Math.round(Math.pow((Math.pow(rowDistance, 5) + Math.pow(colDistance, 5)), 0.2));
-        /*
-        for (int i = 0 ; i < 5 ; i++){
-            rowDistance *= rowDistance;
-            colDistance *= colDistance;
-        }
-        this.minkowskiDistance = (int) (fifthRoot((double) (rowDistance + colDistance)) + 0.5);
-
-         */
+        //this.minkowskiDistance = (int)Math.round(Math.pow((Math.pow(rowDistance, 5) + Math.pow(colDistance, 5)), 0.2));
+        this.manhattanDistance = rowDistance + colDistance;
     }
 
-    private static double fifthRoot(double number) {
-        double precision = 0.00001; // the desired precision of the result
-        double x = number / 5.0; // initial guess
-
-        while (true) {
-            double nextX = (1.0 / 5.0) * ((4.0 * x) + (number / (x * x * x * x))); // calculate the next guess
-            double diff = nextX - x; // calculate the difference between the next guess and the current guess
-            if (diff < 0) { // check if the difference is negative
-                diff = -diff; // take the absolute value of the difference
-            }
-            if (diff < precision) { // check if the desired precision has been reached
-                x = nextX;
-                break;
-            }
-            x = nextX;
-        }
-        return x;
-    }
 
     /**
-     * set the Manhetten Distance to a given value
-     * @param minkowskiDistance -- array that contain the Manhetten Distance, [0]-moves in x, [1]-moves in y
+     * set the minkowski Distance to a given value
+     * @param minkowskiDistance -- array that contain the Manhattan Distance, [0]-moves in x, [1]-moves in y
      */
     public void setMinkowskiDistance(int minkowskiDistance){
-        this.minkowskiDistance = minkowskiDistance;
+        this.manhattanDistance = minkowskiDistance;
     }
 
 

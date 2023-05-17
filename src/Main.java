@@ -24,25 +24,7 @@ public class Main {
         }
         System.out.println("Able to solve " + successCounter + " ot of " + boards.length + " boards.");
     }
-    /*
-    solved:
 
-
-
-
-     */
-    /*
-    time out:
-
-     */
-    /*
-    didnt tried:
-
-
-
-
-
-     */
 
     /**
      * Performs a single search on a given initial board.
