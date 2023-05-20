@@ -19,7 +19,7 @@ public class Search {
      * @return The root node used to search for a solution
      */
     private Node getRoot(String boardString) {
-        return new Node(null, new State(boardString), null);
+        return new Node(null, new State(boardString), null, 0);
     }
 
     /**
